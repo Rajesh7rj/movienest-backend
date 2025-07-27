@@ -4,7 +4,8 @@
   "scripts": {
     "start": "node dist/main",
     "start:dev": "nest start --watch",
-    "build": "nest build",
+    "build": "npm run nest build",
+    "nest": "nest",
     "format": "prettier --write \"src/**/*.ts\""
   },
   "dependencies": {
@@ -23,6 +24,7 @@
     "typeorm": "^0.3.25"
   },
   "devDependencies": {
+    "@nestjs/cli": "^11.0.7",
     "@types/bcrypt": "^6.0.0",
     "@types/multer": "^2.0.0",
     "typescript": "^5.8.3"

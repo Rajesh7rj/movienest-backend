@@ -2,12 +2,13 @@
   "name": "movienest-backend",
   "version": "1.0.0",
   "scripts": {
-    "start": "node dist/main",
-    "start:dev": "nest start --watch",
-    "build": "npm run nest build",
-    "nest": "nest",
-    "format": "prettier --write \"src/**/*.ts\""
-  },
+  "start": "node dist/main",
+  "start:dev": "nest start --watch",
+  "build": "npm run nest build",
+  "start:prod": "node dist/main.js",
+  "nest": "nest",
+  "format": "prettier --write \"src/**/*.ts\""
+},
   "dependencies": {
     "@nestjs/config": "^4.0.2",
     "@nestjs/jwt": "^11.0.0",

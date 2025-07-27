@@ -45,8 +45,8 @@ App runs at: http://localhost:3000
 | POST   | `/movies/create_movie`     | Create a new movie       |
 | PUT    | `/movies/update-movie/:id` | Update an existing movie |
 | DELETE | `/movies/delete-movie/:id` | Delete a movie by ID     |
-| GET    | `/movies/:id`              | Get a movie by ID        |
-| GET    | `/movies?page=1&limit=10`  | Get paginated movie list |
+| GET    | `/movies/get-movie-by-id/:id`              | Get a movie by ID        |
+| GET    | `/movies/get-movies?page=1&limit=10`  | Get paginated movie list |
 
 
 🧾 License

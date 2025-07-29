@@ -18,6 +18,7 @@ import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { multerConfig } from './multer.config';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { UpdateMovieDto } from './dto/update-movie.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('movies')
@@ -42,24 +43,24 @@ export class MoviesController {
     };
   }
 
-  @Put('update-movie/:id')
-  @UseInterceptors(FileInterceptor('movie_image', multerConfig))
-  async update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() dto: CreateMovieDto,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    if (!file) {
-      throw new BadRequestException('Movie Image is required.');
-    }
-
-    const updatedMovie = await this.service.replace(id, dto, file);
-
-    return {
-      message: `Movie '${updatedMovie.movie_title}' updated successfully`,
-      data: updatedMovie,
-    };
+ @Put('update-movie/:id')
+@UseInterceptors(FileInterceptor('movie_image', multerConfig))
+async update(
+  @Param('id', ParseIntPipe) id: number,
+  @Body() dto: UpdateMovieDto,
+  @UploadedFile() file?: Express.Multer.File,
+) {
+  if (!dto.movie_title && !dto.movie_publishing_year && !file) {
+    throw new BadRequestException('At least one field must be provided to update.');
   }
+
+  const updatedMovie = await this.service.updateFields(id, dto, file);
+
+  return {
+    message: `Movie '${updatedMovie.movie_title}' updated successfully`,
+    data: updatedMovie,
+  };
+}
 
   @Delete('delete-movie/:id')
   async delete(@Param('id', ParseIntPipe) id: number) {

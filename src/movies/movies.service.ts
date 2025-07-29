@@ -27,17 +27,43 @@ export class MoviesService {
   return this.repo.save(movie);
 }
 
-async replace(id: number, attrs: CreateMovieDto, file: Express.Multer.File) {
+async updateFields(
+  id: number,
+  attrs: Partial<CreateMovieDto>,
+  file?: Express.Multer.File,
+) {
   const movie = await this.repo.findOneBy({ id });
   if (!movie) throw new NotFoundException('Movie not found');
 
-  movie.movie_title = attrs.movie_title;
-  movie.movie_publishing_year = attrs.movie_publishing_year;
-  movie.movie_image = file.filename;
+   if (
+    attrs.movie_title &&
+    attrs.movie_title.toLowerCase() !== movie?.movie_title?.toLowerCase()
+  ) {
+    const existingMovie = await this.repo.findOne({
+      where: { movie_title: attrs.movie_title },
+    });
 
-  console.log("movie", movie, attrs, file)
+    if (existingMovie) {
+      throw new ConflictException(`Movie "${attrs.movie_title}" already exists`);
+    }
+  }
+
+  if (attrs.movie_title !== undefined) {
+    movie.movie_title = attrs.movie_title;
+  }
+
+  if (attrs.movie_publishing_year !== undefined) {
+    movie.movie_publishing_year = attrs.movie_publishing_year;
+  }
+
+  if (file) {
+    movie.movie_image = file.filename;
+  }
+
+  console.log("Updated Movie:", movie);
   return this.repo.save(movie);
 }
+
 
 async delete(id: number) {
   const movie = await this.repo.findOneBy({ id });

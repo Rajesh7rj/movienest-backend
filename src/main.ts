@@ -11,13 +11,13 @@ async function bootstrap() {
     origin: [
       'http://localhost:3000',
       'http://localhost:3001',
-      'https://your-frontend.vercel.app',
+      'movienest-frontend.vercel.app',
     ],
     credentials: true,
   });
 
   app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));  
-  
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

@@ -42,7 +42,7 @@ App runs at: http://localhost:3000
 🌍 API Endpoints
 | Method | Endpoint                   | Description              |
 | ------ | -------------------------- | ------------------------ |
-| POST   | `/movies/create_movie`     | Create a new movie       |
+| POST   | `/movies/create-movie`     | Create a new movie       |
 | PUT    | `/movies/update-movie/:id` | Update an existing movie |
 | DELETE | `/movies/delete-movie/:id` | Delete a movie by ID     |
 | GET    | `/movies/get-movie-by-id/:id`              | Get a movie by ID        |

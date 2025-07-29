@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 
@@ -7,6 +7,7 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('login')
+  @HttpCode(200)
   async login(@Body() loginDto: LoginDto) {
     const user = await this.authService.validateUser(
       loginDto.email,
@@ -16,7 +17,8 @@ export class AuthController {
   }
 
    @Post('logout')
-    logout() {
+   @HttpCode(204)
+   logout() {
     return { message: 'User Logged Out Successfully.' };
   }
 }
